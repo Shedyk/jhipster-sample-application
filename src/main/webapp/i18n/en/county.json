@@ -1,0 +1,23 @@
+{
+  "jhipsterSampleApplicationApp": {
+    "county": {
+      "home": {
+        "title": "Counties",
+        "createLabel": "Create a new County",
+        "createOrEditLabel": "Create or edit a County",
+        "search": "Search for County",
+        "notFound": "No Counties found"
+      },
+      "created": "A new County is created with identifier {{ param }}",
+      "updated": "A County is updated with identifier {{ param }}",
+      "deleted": "A County is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete County {{ id }}?"
+      },
+      "detail": {
+        "title": "County"
+      },
+      "countyName": "County Name"
+    }
+  }
+}
