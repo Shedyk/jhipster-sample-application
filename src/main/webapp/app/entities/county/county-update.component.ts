@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 
 import { ICounty, County } from 'app/shared/model/county.model';
 import { CountyService } from './county.service';
+import { ICountry } from 'app/shared/model/country.model';
+import { CountryService } from 'app/entities/country/country.service';
 
 @Component({
   selector: 'jhi-county-update',
@@ -14,17 +16,26 @@ import { CountyService } from './county.service';
 })
 export class CountyUpdateComponent implements OnInit {
   isSaving = false;
+  countries: ICountry[] = [];
 
   editForm = this.fb.group({
     id: [],
     countyName: [],
+    country: [],
   });
 
-  constructor(protected countyService: CountyService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
+  constructor(
+    protected countyService: CountyService,
+    protected countryService: CountryService,
+    protected activatedRoute: ActivatedRoute,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ county }) => {
       this.updateForm(county);
+
+      this.countryService.query().subscribe((res: HttpResponse<ICountry[]>) => (this.countries = res.body || []));
     });
   }
 
@@ -32,6 +43,7 @@ export class CountyUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: county.id,
       countyName: county.countyName,
+      country: county.country,
     });
   }
 
@@ -54,6 +66,7 @@ export class CountyUpdateComponent implements OnInit {
       ...new County(),
       id: this.editForm.get(['id'])!.value,
       countyName: this.editForm.get(['countyName'])!.value,
+      country: this.editForm.get(['country'])!.value,
     };
   }
 
@@ -71,5 +84,9 @@ export class CountyUpdateComponent implements OnInit {
 
   protected onSaveError(): void {
     this.isSaving = false;
+  }
+
+  trackById(index: number, item: ICountry): any {
+    return item.id;
   }
 }

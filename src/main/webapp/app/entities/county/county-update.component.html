@@ -16,6 +16,14 @@
                     <input type="text" class="form-control" name="countyName" id="field_countyName"
                            formControlName="countyName"/>
                 </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhipsterSampleApplicationApp.county.country" for="field_country">Country</label>
+                    <select class="form-control" id="field_country" name="country" formControlName="country">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="countryOption.id === editForm.get('country')!.value?.id ? editForm.get('country')!.value : countryOption" *ngFor="let countryOption of countries; trackBy: trackById">{{ countryOption.id }}</option>
+                    </select>
+                </div>
             </div>
 
             <div>

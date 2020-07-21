@@ -42,7 +42,6 @@
                 <tr>
                     <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
                     <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.country.countryName">Country Name</span></th>
-                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.country.country">Country</span></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -50,11 +49,6 @@
                 <tr *ngFor="let country of countries ;trackBy: trackId">
                     <td><a [routerLink]="['/country', country.id, 'view']">{{ country.id }}</a></td>
                     <td>{{ country.countryName }}</td>
-                    <td>
-                        <div *ngIf="country.country">
-                            <a [routerLink]="['/county', country.country?.id, 'view']" >{{ country.country?.id }}</a>
-                        </div>
-                    </td>
                     <td class="text-right">
                         <div class="btn-group">
                             <button type="submit"

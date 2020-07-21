@@ -64,8 +64,8 @@ enum Language {
 relationship OneToMany {
 	Employee to Job{employee},
 }
-relationship OneToOne {
-	Country{country} to County
+relationship OneToMany {
+	 Country to County{country}
 }
 
 relationship OneToOne {
