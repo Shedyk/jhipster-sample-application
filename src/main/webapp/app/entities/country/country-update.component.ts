@@ -4,12 +4,9 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 import { ICountry, Country } from 'app/shared/model/country.model';
 import { CountryService } from './country.service';
-import { ICounty } from 'app/shared/model/county.model';
-import { CountyService } from 'app/entities/county/county.service';
 
 @Component({
   selector: 'jhi-country-update',
@@ -17,46 +14,17 @@ import { CountyService } from 'app/entities/county/county.service';
 })
 export class CountryUpdateComponent implements OnInit {
   isSaving = false;
-  countries: ICounty[] = [];
 
   editForm = this.fb.group({
     id: [],
     countryName: [],
-    country: [],
   });
 
-  constructor(
-    protected countryService: CountryService,
-    protected countyService: CountyService,
-    protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
-  ) {}
+  constructor(protected countryService: CountryService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ country }) => {
       this.updateForm(country);
-
-      this.countyService
-        .query({ filter: 'country-is-null' })
-        .pipe(
-          map((res: HttpResponse<ICounty[]>) => {
-            return res.body || [];
-          })
-        )
-        .subscribe((resBody: ICounty[]) => {
-          if (!country.country || !country.country.id) {
-            this.countries = resBody;
-          } else {
-            this.countyService
-              .find(country.country.id)
-              .pipe(
-                map((subRes: HttpResponse<ICounty>) => {
-                  return subRes.body ? [subRes.body].concat(resBody) : resBody;
-                })
-              )
-              .subscribe((concatRes: ICounty[]) => (this.countries = concatRes));
-          }
-        });
     });
   }
 
@@ -64,7 +32,6 @@ export class CountryUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: country.id,
       countryName: country.countryName,
-      country: country.country,
     });
   }
 
@@ -87,7 +54,6 @@ export class CountryUpdateComponent implements OnInit {
       ...new Country(),
       id: this.editForm.get(['id'])!.value,
       countryName: this.editForm.get(['countryName'])!.value,
-      country: this.editForm.get(['country'])!.value,
     };
   }
 
@@ -105,9 +71,5 @@ export class CountryUpdateComponent implements OnInit {
 
   protected onSaveError(): void {
     this.isSaving = false;
-  }
-
-  trackById(index: number, item: ICounty): any {
-    return item.id;
   }
 }

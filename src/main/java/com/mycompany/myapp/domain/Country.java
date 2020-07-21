@@ -7,6 +7,8 @@ import javax.persistence.*;
 
 import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A Country.
@@ -27,9 +29,9 @@ public class Country implements Serializable {
     @Column(name = "country_name")
     private String countryName;
 
-    @OneToOne
-    @JoinColumn(unique = true)
-    private County country;
+    @OneToMany(mappedBy = "country")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    private Set<County> counties = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -53,17 +55,29 @@ public class Country implements Serializable {
         this.countryName = countryName;
     }
 
-    public County getCountry() {
-        return country;
+    public Set<County> getCounties() {
+        return counties;
     }
 
-    public Country country(County county) {
-        this.country = county;
+    public Country counties(Set<County> counties) {
+        this.counties = counties;
         return this;
     }
 
-    public void setCountry(County county) {
-        this.country = county;
+    public Country addCounty(County county) {
+        this.counties.add(county);
+        county.setCountry(this);
+        return this;
+    }
+
+    public Country removeCounty(County county) {
+        this.counties.remove(county);
+        county.setCountry(null);
+        return this;
+    }
+
+    public void setCounties(Set<County> counties) {
+        this.counties = counties;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

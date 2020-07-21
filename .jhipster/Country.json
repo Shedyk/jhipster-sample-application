@@ -8,12 +8,10 @@
   ],
   "relationships": [
     {
-      "relationshipType": "one-to-one",
+      "relationshipType": "one-to-many",
       "otherEntityName": "county",
       "otherEntityRelationshipName": "country",
-      "relationshipName": "country",
-      "otherEntityField": "id",
-      "ownerSide": true
+      "relationshipName": "county"
     }
   ],
   "changelogDate": "20200721074349",

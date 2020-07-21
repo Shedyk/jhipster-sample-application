@@ -12,12 +12,6 @@
                 <dd>
                     <span>{{ country.countryName }}</span>
                 </dd>
-                <dt><span jhiTranslate="jhipsterSampleApplicationApp.country.country">Country</span></dt>
-                <dd>
-                    <div *ngIf="country.country">
-                        <a [routerLink]="['/county', country.country?.id, 'view']">{{ country.country?.id }}</a>
-                    </div>
-                </dd>
             </dl>
 
             <button type="submit"

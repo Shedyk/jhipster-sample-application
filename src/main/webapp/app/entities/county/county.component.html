@@ -42,6 +42,7 @@
                 <tr>
                     <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
                     <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.county.countyName">County Name</span></th>
+                    <th scope="col" ><span jhiTranslate="jhipsterSampleApplicationApp.county.country">Country</span></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -49,6 +50,11 @@
                 <tr *ngFor="let county of counties ;trackBy: trackId">
                     <td><a [routerLink]="['/county', county.id, 'view']">{{ county.id }}</a></td>
                     <td>{{ county.countyName }}</td>
+                    <td>
+                        <div *ngIf="county.country">
+                            <a [routerLink]="['/country', county.country?.id, 'view']" >{{ county.country?.id }}</a>
+                        </div>
+                    </td>
                     <td class="text-right">
                         <div class="btn-group">
                             <button type="submit"

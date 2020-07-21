@@ -1,5 +1,6 @@
 package com.mycompany.myapp.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -27,6 +28,10 @@ public class County implements Serializable {
     @Column(name = "county_name")
     private String countyName;
 
+    @ManyToOne
+    @JsonIgnoreProperties(value = "counties", allowSetters = true)
+    private Country country;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
@@ -47,6 +52,19 @@ public class County implements Serializable {
 
     public void setCountyName(String countyName) {
         this.countyName = countyName;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public County country(Country country) {
+        this.country = country;
+        return this;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
