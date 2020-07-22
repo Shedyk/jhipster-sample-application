@@ -1,11 +1,13 @@
 entity Region {
 	regionName String
 }
-entity County {
-	countyName String
-}
+
 entity Country {
 	countryName String
+}
+
+entity County {
+	countyName String
 }
 
 // an ignored comment
@@ -64,9 +66,7 @@ enum Language {
 relationship OneToMany {
 	Employee to Job{employee},
 }
-relationship OneToMany {
-	 Country to County{country}
-}
+
 
 relationship OneToOne {
 	Location{country} to Country
@@ -93,6 +93,9 @@ relationship OneToMany {
 	Employee{department}
 }
 
+relationship OneToMany {
+	 Country to County{country}
+}
 relationship ManyToOne {
 	Employee{manager} to Employee
 }
